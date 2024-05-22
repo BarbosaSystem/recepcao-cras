@@ -1,54 +1,38 @@
-<script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+<script>
+import SearchBar from '../components/searchBar.vue';
+import TableLoading from '../components/tableLoading.vue' ;
+import myMixin from '../mixin/mixinAtendimento.js'
 
-    const store = useStore();
-    const docLength = (texto) =>{
-        return texto.toString().length === 10 ? "0" + texto : texto;
-    }
-    const nextPage = () =>{
-          this.$store.commit('setCurrentPage', this.getCurrentPage + 1);
-    }
-    const prevPage = () => {
-          this.$store.commit('setCurrentPage', this.getCurrentPage - 1);
-    }
-    const onPageChange = (page) => {
+export default {
+    components: {
+        /*'modal-atendimento' : modalAtendimento,*/
+        SearchBar,
+        TableLoading
+    },
+    mixins: [myMixin],
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            // access to component instance via `vm`
+            vm.$store.dispatch("Action_LoadAtendimentos", { currentPage : 1, status: true });
+        })
+    },
+    methods: {
+        nextPage(){
+        this.$store.commit('setCurrentPage', this.getCurrentPage + 1);
+        },
+        prevPage(){
+        this.$store.commit('setCurrentPage', this.getCurrentPage - 1);
+        },
+        onPageChange(page) {
         this.$store.dispatch("Action_LoadAtendimentos", { currentPage : page, status : true });
-    }
-    const buscarPessoa = (item) => {
-        if (item.params !== "") {
-            this.$store.dispatch("Action_LoadAtendimento_ByParameter", item);
+        },
+        buscarPessoa(item){
+        if(item.params == ""){
         }
-    }
-
-    const ConvertData = (dateString) =>{
-        try {
-            var parts = dateString.split("-");
-            var year = parseInt(parts[0]);
-            var month = parseInt(parts[1]);
-            var day = parseInt(parts[2]);
-            // Cria um objeto de data com a data fornecida
-            var date = new Date(year, month - 1, day);
-            // Adiciona um dia à data
-            date.setDate(date.getDate());
-            // Obtém os componentes de dia, mês e ano da nova data
-            var newDay = date.getDate();
-            var newMonth = date.getMonth() + 1;
-            var newYear = date.getFullYear();
-            // Formata a data no formato desejado (dd/mm/yyyy)
-            var formattedDate =
-            ("0" + newDay).slice(-2) +
-            "/" +
-            ("0" + newMonth).slice(-2) +
-            "/" +
-            newYear;
-            return formattedDate;
-        } catch (error) {
-            return dateString
+        this.$store.dispatch("Action_LoadAtendimento_ByParameter", item)
         }
-    }
-    const getLoading = computed(() => store.getters.getLoading)
-    const getAtendimentos = computed(() => store.getters.getAtendimentos)
+    },
+}
 </script>
 <template>
     <div>
@@ -60,15 +44,13 @@ import { useStore } from 'vuex';
                 </div>
             </div>
         </div>
-        <div class="row col col-md-6">
-            <!-- <search-bar @buscaPessoa="buscarPessoa" label="Buscar..." :optionsList="[{ label: 'Nome', value: 'nome'}, { label: 'Nº doc', value: 'documento'}]"></search-bar> -->
+        <div class="row col">
+            <SearchBar @buscaPessoa="buscarPessoa" :optionsList="[{ label: 'Nome', value: 'nome'}, { label: 'Nº doc', value: 'documento'}]" />
         </div>
         <!--<modal-atendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" ></modal-atendimento> -->
         <div class="table-responsive loading">
-            <!-- <table-loading v-if="$store.getters.getLoading"> </table-loading>
-            <table class="table table-striped table-hover table-sm" v-else="$store.getters.getLoading">
-            -->
-            <table class="table table-striped table-hover table-sm">
+            <TableLoading v-if="$store.getters.getLoading" />
+                <table class="table table-striped table-hover table-sm" v-else="$store.getters.getLoading">
                 <thead>
                     <tr>
                     <th>Data</th>
@@ -92,26 +74,26 @@ import { useStore } from 'vuex';
                             Opções
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <!--  <li>
-                                <button type="button" class="btn btn-success dropdown-item" v-if="!item.status" title="Atender"                      
-                                    @click="showAtendimentoForm(item)"><i class="fa-solid fa-circle-check"></i> Atender
-                                </button>
+                               <li>
+                                    <button type="button" class="btn btn-success dropdown-item" v-if="!item.status" title="Atender"                      
+                                        @click="showAtendimentoForm(item)"><i class="fa-solid fa-circle-check"></i> Atender
+                                    </button>
                                 </li>
                                 <li>
-                                <button type="button" class="btn btn-secondary dropdown-item"v-if="!item.status"  title="Editar" @click="showEditForm(item)">
-                                <i class="fa-solid fa-pen-to-square"></i> Editar
-                                </button>
+                                    <button type="button" class="btn btn-secondary dropdown-item"v-if="!item.status"  title="Editar" @click="showEditForm(item)">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                    </button>
                                 </li>
                                 <li>
-                                <button type="button" class="btn btn-secondary dropdown-item" v-if="!item.status" title="Cancelar" @click="showDeleteForm(item)">
-                                <i class="fa-solid fa-circle-xmark"></i> Excluir
-                                </button>
+                                    <button type="button" class="btn btn-secondary dropdown-item" v-if="!item.status" title="Cancelar" @click="showDeleteForm(item)">
+                                    <i class="fa-solid fa-circle-xmark"></i> Excluir
+                                    </button>
                                 </li>
                                 <li>
-                                <button type="button" class="btn btn-secondary dropdown-item" v-if="item.status" title="Mais Informações" @click="showInfoForm(item)">
-                                <i class="fa-regular fa-circle-question"></i> Detalhes
-                                </button> 
-                                </li> -->
+                                    <button type="button" class="btn btn-secondary dropdown-item" v-if="item.status" title="Mais Informações" @click="showInfoForm(item)">
+                                    <i class="fa-regular fa-circle-question"></i> Detalhes
+                                    </button> 
+                                </li>
                             </ul>
                         </div>
                     </td>

@@ -25,12 +25,12 @@ import { useStore } from 'vuex';
         <li class="nav-item text-nowrap">
           <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa-solid fa-bars fa-1x"></i>
-          </button>
+          </button> 
         </li>
       </ul>
 
-      <div id="navbarSearch" class="navbar-search w-100 collapse" style="">
+      <!--<div id="navbarSearch" class="navbar-search w-100 collapse" style="">
         <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-      </div>
+      </div> -->
     </header>
 </template>
