@@ -1,15 +1,22 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router';
 import historicoView from '../views/historico.vue'
 const routes = [
   {
       path: "/",
       component: historicoView,
-      meta: { title: "Histórico de Atendimentos" },
+      name:"home",
+      meta: { title: "Central de Atendimentos" },
   },
+  {
+    path: "/historico",
+    component: historicoView,
+    name:"historico",
+    meta: { title: "Histórico de Atendimentos" },
+},
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 

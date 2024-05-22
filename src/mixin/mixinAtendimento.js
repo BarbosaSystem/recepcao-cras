@@ -18,10 +18,15 @@ export default {
         }
     },
     methods: {
+      
       showCreateForm(){
           this.mode = "Create"
-          this.atendimentoFormulario = this.$Utils.copyObject(this.$Utils.atendimentoModel()),
-          this.$Utils.openDialog("atendimentoModal")
+          this.atendimentoFormulario = this.$Utils.copyObject(this.$Utils.atendimentoModel())
+          var myModal = new bootstrap.Modal(document.getElementById("atendimentoModal"), {
+            keyboard: false,
+          });
+          myModal.show();
+          //openDialog("atendimentoModal")
         },
         showEditForm(item){
           this.mode = "Update"
@@ -30,9 +35,13 @@ export default {
             if (item.hasOwnProperty(key))
               this.atendimentoFormulario[key].value = item[key];
           });
-          this.$Utils.openDialog("atendimentoModal")
+          var myModal = new bootstrap.Modal(document.getElementById("atendimentoModal"), {
+            keyboard: false,
+          });
+          myModal.show();
+         //openDialog("atendimentoModal")
         },
-        showInfoForm(item){
+        /* showInfoForm(item){
           this.mode = "Info"
           Object.keys(this.atendimentoFormulario).forEach((key) => {
               if (item.hasOwnProperty(key))
@@ -40,8 +49,12 @@ export default {
               if (!item.status)
                 this.atendimentoFormulario[key].disabled = true;
           })
-          this.$Utils.openDialog("atendimentoModal")
-        },
+          var myModal = new bootstrap.Modal(document.getElementById("atendimentoModal"), {
+            keyboard: false,
+          });
+          myModal.show();
+          //openDialog("atendimentoModal")
+        },*/
         showDeleteForm(item){
             this.mode = "Delete"
             this.atendimentoFormulario = this.$Utils.copyObject(this.$Utils.atendimentoModel())
@@ -49,7 +62,7 @@ export default {
               if (item.hasOwnProperty(key)) this.atendimentoFormulario[key].value = item[key]
               this.atendimentoFormulario[key].disabled = true
             })
-            this.$Utils.openDialog("atendimentoModalDelete")
+           // openDialog("atendimentoModalDelete")
         },
         showAtendimentoForm(item){
           this.atendimentoFormulario = this.$Utils.copyObject(this.$Utils.atendimentoModel())
@@ -57,7 +70,7 @@ export default {
             if (item.hasOwnProperty(key)) this.atendimentoFormulario[key].value = item[key]
             this.atendimentoFormulario[key].disabled = true
           })
-          this.$Utils.openDialog("modalAtender")
+          //openDialog("modalAtender")
         },
         async deleteRegistro(){
           const data = {};
@@ -66,7 +79,7 @@ export default {
           });
           const formulario = {id: data.id}
           await this.$store.dispatch("Action_DeleteAtendimento", formulario);
-          this.$Utils.closeDialog("atendimentoModalDelete")
+          closeDialog("atendimentoModalDelete")
         },
         async changeStatus(){
           const data = {};
@@ -74,7 +87,7 @@ export default {
             data[key] = item.value.toString();
           });
           await this.$store.dispatch("Action_Liberar_Atendimento", { id: data.id })
-          this.$Utils.closeDialog("modalAtender")
+          //closeDialog("modalAtender")
         },
       async submit(){
           const data = {};
@@ -89,7 +102,7 @@ export default {
               await this.$store.dispatch("Action_UpdateItem", data)
               break;
           }
-          this.$Utils.closeDialog("atendimentoModal")
+          //closeDialog("atendimentoModal")
         },
         showInfoForm(item){
           this.mode = "Info"
@@ -106,7 +119,11 @@ export default {
               }
               this.atendimentoFormulario[key].disabled = true;
           })
-          this.$Utils.openDialog("atendimentoModal")
+          var myModal = new bootstrap.Modal(document.getElementById("atendimentoModal"), {
+            keyboard: false,
+          });
+          myModal.show();
+          //openDialog("atendimentoModal")
         },
         docLength(texto){
           if(texto.toString().length == 10)

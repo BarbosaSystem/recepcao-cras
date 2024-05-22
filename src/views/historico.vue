@@ -2,10 +2,11 @@
 import SearchBar from '../components/searchBar.vue';
 import TableLoading from '../components/tableLoading.vue' ;
 import myMixin from '../mixin/mixinAtendimento.js'
+import modalAtendimento from '../components/modalAtendimento.vue';
 
 export default {
     components: {
-        /*'modal-atendimento' : modalAtendimento,*/
+        'modal-atendimento' : modalAtendimento,
         SearchBar,
         TableLoading
     },
@@ -47,7 +48,7 @@ export default {
         <div class="row col">
             <SearchBar @buscaPessoa="buscarPessoa" :optionsList="[{ label: 'Nome', value: 'nome'}, { label: 'Nº doc', value: 'documento'}]" />
         </div>
-        <!--<modal-atendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" ></modal-atendimento> -->
+        <modal-atendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" ></modal-atendimento>
         <div class="table-responsive loading">
             <TableLoading v-if="$store.getters.getLoading" />
                 <table class="table table-striped table-hover table-sm" v-else="$store.getters.getLoading">
@@ -68,9 +69,9 @@ export default {
                     <td class="d-none d-sm-table-cell ">{{item.tipo_doc}}</td>
                     <td class="d-none d-sm-table-cell ">{{docLength(item.documento)}}</td>
                     <td>{{item.tipo_atendimento}}</td>
-                    <td class="text-center">
+                    <td class="text-end">
                         <div class="dropdown">
-                            <button :class="{ 'btn-dark' : item.status }" class="btn btn-default btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button :class="{ 'btn-dark' : item.status }" class="btn btn-default border btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Opções
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">

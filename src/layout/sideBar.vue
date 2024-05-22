@@ -31,10 +31,24 @@ import menuLink from '../components/menuLink.vue';
                   overflow-y-auto
                 ">
               <ul class="nav flex-column">
-                <menuLink :info="{route: '/', label: 'ATENDIMENTOS'}" />
+                <li class="nav-item"  >
+                    <RouterLink  class="nav-link d-flex align-items-center gap-2" 
+                    aria-current="page" router-link-active exact :to="{name: 'home'}"
+                    data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close">
+                       ATENDIMENTOS
+                    </RouterLink >
+                </li>
+                <li class="nav-item"  >
+                    <RouterLink  class="nav-link d-flex align-items-center gap-2" 
+                    aria-current="page" router-link-active exact :to="{name: 'historico'}" 
+                    data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close">
+                        HISTORICO
+                    </RouterLink >
+                </li>
+                <!--<menuLink :info="{route: '/', label: 'ATENDIMENTOS'}" />
                 <menuLink :info="{route: '/historico', label: 'HISTÓRICO'}" />
                 <menuLink :info="{route: '/areaFree', label: 'Dev Teste'}" />
-                <menuLink :info="{route: '/teste', label: 'EM CONSTRUÇÃO'}" />
+                <menuLink :info="{route: '/teste', label: 'EM CONSTRUÇÃO'}" /> -->
               </ul>
             </div>
           </nav>
