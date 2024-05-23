@@ -92,6 +92,9 @@ export const MeuPlugin = {
           copyObject(obj) {
             return JSON.parse(JSON.stringify(obj));
           },
+          closeOffcanvas() {
+            
+          },
           closeDialog(id) {
             const dialog = document.getElementById(id);
             bootstrap.Modal.getInstance(dialog).hide();

@@ -1,0 +1,7 @@
+router.afterEach(() => {
+      const sidebarMenu = document.getElementById('sidebarMenu');
+      if (sidebarMenu) {
+        const offcanvas = new bootstrap.Offcanvas(sidebarMenu);
+        offcanvas.hide();
+      }
+    });

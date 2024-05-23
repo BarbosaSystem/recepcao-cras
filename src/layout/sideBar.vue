@@ -1,11 +1,19 @@
-<script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+<script>
+import { mapGetters } from 'vuex';
 import menuLink from '../components/menuLink.vue';
-
- const store = useStore()
-
- const getLogo = computed(() => store.getters.getLogo)
+  export default {
+    components: {
+      menuLink
+    },
+    computed: {
+      ...mapGetters(["getLogo"])
+    },
+    methods:{
+      mudar(item){
+        router.push({name: item})
+      }
+    }
+  }
 </script>
 
 <template>
@@ -31,24 +39,8 @@ import menuLink from '../components/menuLink.vue';
                   overflow-y-auto
                 ">
               <ul class="nav flex-column">
-                <li class="nav-item"  >
-                    <RouterLink  class="nav-link d-flex align-items-center gap-2" 
-                    aria-current="page" router-link-active exact :to="{name: 'home'}"
-                    data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close">
-                       ATENDIMENTOS
-                    </RouterLink >
-                </li>
-                <li class="nav-item"  >
-                    <RouterLink  class="nav-link d-flex align-items-center gap-2" 
-                    aria-current="page" router-link-active exact :to="{name: 'historico'}" 
-                    data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close">
-                        HISTORICO
-                    </RouterLink >
-                </li>
-                <!--<menuLink :info="{route: '/', label: 'ATENDIMENTOS'}" />
-                <menuLink :info="{route: '/historico', label: 'HISTÓRICO'}" />
-                <menuLink :info="{route: '/areaFree', label: 'Dev Teste'}" />
-                <menuLink :info="{route: '/teste', label: 'EM CONSTRUÇÃO'}" /> -->
+                <menuLink :info="{route: '/', label: 'ATENDIMENTOS'}" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close" />
+                <menuLink :info="{route: '/historico', label: 'HISTÓRICO'}" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close" />
               </ul>
             </div>
           </nav>
