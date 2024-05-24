@@ -85,7 +85,7 @@ export default {
       });
       const formulario = { id: data.id }
       await this.$store.dispatch("Action_DeleteAtendimento", formulario);
-      closeDialog("atendimentoModalDelete")
+      this.$Utils.closeDialog("atendimentoModalDelete")
     },
     async changeStatus() {
       const data = {};
@@ -93,7 +93,7 @@ export default {
         data[key] = item.value.toString();
       });
       await this.$store.dispatch("Action_Liberar_Atendimento", { id: data.id })
-      //closeDialog("modalAtender")
+      this.$Utils.closeDialog("modalAtender")
     },
     async submit() {
       const data = {};
@@ -108,7 +108,7 @@ export default {
           await this.$store.dispatch("Action_UpdateItem", data)
           break;
       }
-      //closeDialog("atendimentoModal")
+      this.$Utils.closeDialog("atendimentoModal")
     },
     
 
