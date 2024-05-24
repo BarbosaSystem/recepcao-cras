@@ -1,57 +1,62 @@
 <script>
+import ModalAtender from '../components/modalAtender.vue';
+import ModalExcluir from '../components/modalExcluir.vue';
 import Pagination from '../components/pagination.vue';
 import myMixin from '../mixin/mixinAtendimento'
-export default {   
-    beforeRouteEnter (to, from, next) {
-      next(vm => {
-        // access to component instance via `vm`
-        vm.$store.dispatch("Action_LoadAtendimentos", { currentPage : 1, status: false });
-      })
-    },
-    computed:{
-      orderAtendimentos (){
-        const itens = this.getAtendimentos
-        const prioridade = this.getAtendimentos.find(elemento => elemento.prioridade === true)
-        console.log(prioridade)
-        if((prioridade === null)|| (prioridade === undefined)){
-          return itens.sort((a, b) => {
-                if(a.id > b.id){return 1}
-                if(a.id < b.id){return -1}
-                return 0
-          })
-        } else {
-          return itens.sort(function(a, b) {
-            // Primeiro, ordena por status
-            if (a.prioridade !== b.prioridade) {
-                // Se a.status for true, ordena antes de b.status (ou seja, "ativo" vem antes de "inativo")
-                return a.prioridade ? -1 : 1;
-            }
-            // Se os status forem iguais, ordena por ID
-            return a.id - b.id;
+export default {
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            // access to component instance via `vm`
+            vm.$store.dispatch("Action_LoadAtendimentos", { currentPage: 1, status: false });
         });
+    },
+    computed: {
+        orderAtendimentos() {
+            const itens = this.getAtendimentos;
+            const prioridade = this.getAtendimentos.find(elemento => elemento.prioridade === true);
+            console.log(prioridade);
+            if ((prioridade === null) || (prioridade === undefined)) {
+                return itens.sort((a, b) => {
+                    if (a.id > b.id) {
+                        return 1;
+                    }
+                    if (a.id < b.id) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
+            else {
+                return itens.sort(function (a, b) {
+                    // Primeiro, ordena por status
+                    if (a.prioridade !== b.prioridade) {
+                        // Se a.status for true, ordena antes de b.status (ou seja, "ativo" vem antes de "inativo")
+                        return a.prioridade ? -1 : 1;
+                    }
+                    // Se os status forem iguais, ordena por ID
+                    return a.id - b.id;
+                });
+            }
         }
-      }
     },
     mixins: [myMixin],
-
     methods: {
-      
-      nextPage(){
-        this.$store.commit('setCurrentPage', this.getCurrentPage + 1);
-      },
-      prevPage(){
-        this.$store.commit('setCurrentPage', this.getCurrentPage - 1);
-      },
-      onPageChange(page) {
-        this.$store.dispatch("Action_LoadAtendimentos", { currentPage : page, status : false });
-      },
-      buscarPessoa(item){
-        if(item.params == ""){
-          
+        nextPage() {
+            this.$store.commit('setCurrentPage', this.getCurrentPage + 1);
+        },
+        prevPage() {
+            this.$store.commit('setCurrentPage', this.getCurrentPage - 1);
+        },
+        onPageChange(page) {
+            this.$store.dispatch("Action_LoadAtendimentos", { currentPage: page, status: false });
+        },
+        buscarPessoa(item) {
+            if (item.params == "") {
+            }
+            this.$store.dispatch("Action_LoadAtendimento_ByParameter", item);
         }
-        this.$store.dispatch("Action_LoadAtendimento_ByParameter", item)
-      }
     },
+    components: { ModalAtender, ModalExcluir }
 }
 </script>
 <template>
@@ -75,9 +80,8 @@ export default {
         :optionsList="[{ label: 'Nome', value: 'nome' }, { label: 'Nº doc', value: 'documento' }]"></search-bar>
     </div>
     <modalAtendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
-    <!-- <modal-atendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario"></modal-atendimento>
-    <modal-delete @deleteForm="deleteRegistro" :model="atendimentoFormulario"></modal-delete>
-    <modal-atender @iniciar="changeStatus" :model="atendimentoFormulario"></modal-atender> -->
+    <ModalAtender :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
+    <ModalExcluir @deleteForm="deleteRegistro" :model="atendimentoFormulario" />
     <div class="loading">
 
       <table-loading v-if="$store.getters.getLoading"> </table-loading>

@@ -5,3 +5,95 @@ router.afterEach(() => {
         offcanvas.hide();
       }
     });
+
+
+
+Metodos otimizados via chatGPT
+
+// Função para inicializar o formulário de atendimento
+    initializeAtendimentoForm(item, mode) {
+      const atendimentoModel = this.$Utils.atendimentoModel();
+      this.mode = mode;
+      this.atendimentoFormulario = this.$Utils.copyObject(atendimentoModel);
+    
+      Object.keys(this.atendimentoFormulario).forEach(key => {
+        if (item && item.hasOwnProperty(key)) {
+          this.atendimentoFormulario[key].value = item[key];
+          if (mode === "Delete" || mode === "Info") {
+            this.atendimentoFormulario[key].disabled = true;
+          }
+          if (mode === "Info" && key === "data_in_atendimento") {
+            let options = {
+              timeZone: 'America/Sao_Paulo',
+              hour12: false,
+            };
+            var hora = new Date(item.data_in_atendimento).toLocaleString('pt-br', options).substr(0, 17);
+            this.atendimentoFormulario[key].value = hora;
+          }
+        }
+      });
+    },
+
+    // Função para abrir o diálogo
+    openAtendimentoDialog(dialogName) {
+      this.$Utils.openDialog(dialogName);
+    },
+
+    // Método para deletar registro
+    async deleteRegistro() {
+      const data = {};
+      Object.entries(this.atendimentoFormulario).forEach(([key, item]) => {
+        data[key] = item.value.toString();
+      });
+      const formulario = { id: data.id };
+      await this.$store.dispatch("Action_DeleteAtendimento", formulario);
+      this.closeDialog("atendimentoModalDelete");
+    },
+
+    // Método para mudar o status
+    async changeStatus() {
+      const id = this.atendimentoFormulario.id.value.toString();
+      await this.$store.dispatch("Action_Liberar_Atendimento", { id });
+    },
+
+    // Método para submeter o formulário
+    async submit() {
+      const data = {};
+      Object.entries(this.atendimentoFormulario).forEach(([key, item]) => {
+        data[key] = item.value.toString();
+      });
+
+      switch (this.mode) {
+        case "Create":
+          await this.$store.dispatch("Action_CreateAtendimento", data);
+          break;
+        case "Update":
+          await this.$store.dispatch("Action_UpdateItem", data);
+          break;
+      }
+      this.closeDialog("atendimentoModal");
+    },
+
+    // Métodos refatorados
+    showCreateForm() {
+      this.initializeAtendimentoForm(null, "Create");
+      this.openAtendimentoDialog("atendimentoModal");
+    },
+    showInfoForm(item) {
+      this.initializeAtendimentoForm(item, "Info");
+      this.openAtendimentoDialog("atendimentoModal");
+    },
+    showEditForm(item) {
+      this.initializeAtendimentoForm(item, "Update");
+      this.openAtendimentoDialog("atendimentoModal");
+    },
+
+    showDeleteForm(item) {
+      this.initializeAtendimentoForm(item, "Delete");
+      this.openAtendimentoDialog("atendimentoModalDelete");
+    },
+
+    showAtendimentoForm(item) {
+      this.initializeAtendimentoForm(item, "Info");
+      this.openAtendimentoDialog("modalAtender");
+    },
