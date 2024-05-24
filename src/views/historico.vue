@@ -3,13 +3,15 @@ import SearchBar from '../components/searchBar.vue';
 import TableLoading from '../components/tableLoading.vue' ;
 import myMixin from '../mixin/mixinAtendimento.js'
 import modalAtendimento from '../components/modalAtendimento.vue';
+import Pagination from '../components/pagination.vue';
 
 export default {
     components: {
-        'modal-atendimento' : modalAtendimento,
-        SearchBar,
-        TableLoading
-    },
+    'modal-atendimento': modalAtendimento,
+    SearchBar,
+    TableLoading,
+    Pagination
+},
     mixins: [myMixin],
     beforeRouteEnter (to, from, next) {
         next(vm => {
@@ -81,7 +83,7 @@ export default {
                                     </button>
                                 </li>
                                 <li>
-                                    <button type="button" class="btn btn-secondary dropdown-item"v-if="!item.status"  title="Editar" @click="showEditForm(item)">
+                                    <button type="button" class="btn btn-secondary dropdown-item" v-if="!item.status"  title="Editar" @click="showEditForm(item)">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                     </button>
                                 </li>
@@ -101,7 +103,7 @@ export default {
                     </tr>
                 </tbody>
             </table>
-            <!-- <pagina v-if="getAtendimentos.length > 0" :disableButton:="$store.getters.getLoading" :total-pages="$store.getters.getPages" :per-page="$store.getters.GetPageSize" :current-page="$store.getters.getCurrentPage" @pagechanged="onPageChange" /> -->
+            <Pagination v-if="getAtendimentos.length > 0" :disableButton:="$store.getters.getLoading" :total-pages="$store.getters.getPages" :per-page="$store.getters.GetPageSize" :current-page="$store.getters.getCurrentPage" @pagechanged="onPageChange" />
         </div>
     </div>
 </template>
