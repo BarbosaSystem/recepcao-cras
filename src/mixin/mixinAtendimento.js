@@ -1,6 +1,16 @@
 import { mapGetters } from "vuex"
+import SearchBar from '../components/searchBar.vue';
+import TableLoading from '../components/tableLoading.vue' ;
+import Pagination from '../components/pagination.vue';
+import modalAtendimento from '../components/modalAtendimento.vue';
 
 export default {
+    components:{
+      SearchBar,
+      TableLoading,
+      Pagination,
+      modalAtendimento
+    },
     computed: {
         ...mapGetters(["getAtendimentos", "getCurrentPage", "getPages", "getGrafico", "getLoading"]),
         getAtendimentoCadUnico(){

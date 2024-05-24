@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
       path: "/",
-      component: () => import('../views/historico.vue'),
+      component: () => import('../views/atendimento.vue'),
       name:"home",
       meta: { title: "Central de Atendimentos" },
   },

@@ -17,7 +17,7 @@
         </div>
     
         <div class="form-check form-switch" v-else-if="item.type === 'Boolean'">
-        <input style="height: 20px; width: 4rem !important;" class="form-check-input" @change="$emit('toggle')" v-model="item.value" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+        <input style="height: 20px; width: 4rem !important;" :disabled="item.disabled" class="form-check-input" @change="$emit('toggle')" v-model="item.value" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
         <label class="form-check-label" for="flexSwitchCheckChecked">{{item.text}}</label>
     </div>
 

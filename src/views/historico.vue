@@ -1,17 +1,8 @@
 <script>
-import SearchBar from '../components/searchBar.vue';
-import TableLoading from '../components/tableLoading.vue' ;
 import myMixin from '../mixin/mixinAtendimento.js'
-import modalAtendimento from '../components/modalAtendimento.vue';
-import Pagination from '../components/pagination.vue';
+
 
 export default {
-    components: {
-    'modal-atendimento': modalAtendimento,
-    SearchBar,
-    TableLoading,
-    Pagination
-},
     mixins: [myMixin],
     beforeRouteEnter (to, from, next) {
         next(vm => {
@@ -50,10 +41,10 @@ export default {
         <div class="row col">
             <SearchBar @buscaPessoa="buscarPessoa" :optionsList="[{ label: 'Nome', value: 'nome'}, { label: 'Nº doc', value: 'documento'}]" />
         </div>
-        <modal-atendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" ></modal-atendimento>
+        <modalAtendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
         <div class="table-responsive loading">
             <TableLoading v-if="$store.getters.getLoading" />
-                <table class="table table-striped table-hover table-sm" v-else="$store.getters.getLoading">
+            <table class="table table-striped table-hover table-sm" v-else="$store.getters.getLoading">
                 <thead>
                     <tr>
                     <th>Data</th>
