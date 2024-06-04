@@ -17,6 +17,7 @@ import contentBar from './layout/contentBar.vue'
     <contentBar />
   </div>
   </div>
+  <modal-changelog />
 </template>
 
 <style scoped>

@@ -12,7 +12,7 @@ export default {
     },
     computed: {
         orderAtendimentos() {
-            const itens = this.getAtendimentos;
+            const itens = this.getAtendimentos.filter(elemento => elemento.status === false);
             const prioridade = this.getAtendimentos.find(elemento => elemento.prioridade === true);
             console.log(prioridade);
             if ((prioridade === null) || (prioridade === undefined)) {

@@ -1,10 +1,18 @@
-<script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+<script>
+import { mapGetters } from 'vuex';
 
- const store = useStore()
-
- const getLogo = computed(() => store.getters.getLogo)
+  export default {
+    computed: {
+      ...mapGetters(["getLogo"])
+    },
+    methods: {
+      abrir (){
+            this.$store.commit("setChangeLog", [])
+            this.$store.dispatch("Action_LoadChangeLog")
+            this.$Utils.openDialog("atendimentoModalChangeLog")
+      }
+    }
+  }
 </script>
 <template>
     <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
