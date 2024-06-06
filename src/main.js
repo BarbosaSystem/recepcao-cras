@@ -6,5 +6,7 @@ import App from './App.vue';
 
 import { MeuPlugin } from './javascript/plugin.js';
 
+/* Components */
+import modalChangeLog from './components/modalChangeLog.vue'
 
-createApp(App).use(MeuPlugin).use(store).use(router).mount('#app');
+createApp(App).component('modal-changelog', modalChangeLog).use(MeuPlugin).use(store).use(router).mount('#app');
