@@ -97,3 +97,19 @@ Metodos otimizados via chatGPT
       this.initializeAtendimentoForm(item, "Info");
       this.openAtendimentoDialog("modalAtender");
     },
+
+
+
+        // Redirecionar para a página de login se não estiver autenticado
+    /*try {
+      const token = Utils.getToken();
+      const { user } = JSON.parse(token)
+      store.commit("setUserLogged", user)
+    } catch (error) {
+      next('/login');
+    }
+    if (!store.getters.getUserLogged) {
+      next('/login');
+    } else {
+      next();
+    }*/
