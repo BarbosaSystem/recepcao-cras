@@ -11,7 +11,13 @@ const routes = [
     component: () => import('../views/historico.vue'),
     name:"historico",
     meta: { title: "Histórico de Atendimentos" },
-},
+  },
+  {
+    path: "/cejusc",
+    component: () => import('../views/cejusc.vue'),
+    name:"cejusc",
+    meta: { title: "Atendimentos Cejusc" },
+  },
 ];
 
 const router = createRouter({

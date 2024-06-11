@@ -6,6 +6,7 @@ import myMixin from '../mixin/mixinAtendimento'
 export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
+            console.log(this.$Utils)
             // access to component instance via `vm`
             vm.$store.dispatch("Action_LoadAtendimentos", { currentPage: 1, status: false });
         });
@@ -156,6 +157,7 @@ export default {
         <span class="prio bg-danger"></span> Atendimento Prioritário
         <span class="prio bg-success"></span> Atendimento Comum
     </div>
-  </div>
+    </div>
 
-</div></template>
+  </div>
+</template>

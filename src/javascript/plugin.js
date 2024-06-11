@@ -1,8 +1,11 @@
+import cejuscModel from "./cejuscModel.js";
+
 export const MeuPlugin = {
     install(app) {
       // Adicione métodos, diretivas, componentes, etc. ao Vue
       app.config.globalProperties.$Utils = {
-        atendimentoModel (){
+          ...cejuscModel,
+          atendimentoModel (){
             return { id: {
               id: "atendimento_id",
               label: "ID",
