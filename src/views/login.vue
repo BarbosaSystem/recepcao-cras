@@ -16,7 +16,7 @@ export default {
             const {email, password} = event.target
             console.log(email.value)
             console.log(password.value)
-            
+            this.$router.push( {name: 'default'})
         }
     }
 }

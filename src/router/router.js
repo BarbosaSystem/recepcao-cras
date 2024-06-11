@@ -8,16 +8,16 @@ const routes = [
     meta:{requiresAuth: true },
     children: [
       {
-        path: "/",
+        path: "/atendimento",
         component: () => import('../views/atendimento.vue'),
         name:"home",
-        meta: { title: "Central de Atendimentos" },
+        meta: { title: "Central de Atendimentos", requiresAuth: true },
     },
     {
         path: "/historico",
         component: () => import('../views/historico.vue'),
         name:"historico",
-        meta: { title: "Histórico de Atendimentos" },
+        meta: { title: "Histórico de Atendimentos", requiresAuth: true },
     },
      /* { path: '/atendimento', component: atendimentoView, meta: { title: "Fila de Espera", sideBar:true, requiresAuth: true , accessLevel: ['USUARIO', 'ADMINISTRADOR', 'SYSADMIN'], visible: true }},
       { path: '/historico', component: historicoView, meta: { title: "Histórico", sideBar:true, requiresAuth: true, accessLevel: ['USUARIO', 'ADMINISTRADOR', 'SYSADMIN'], visible: true  }},
@@ -43,20 +43,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-router.beforeEach((to, from, next) => {
-  if(to.path === "/login"){
-    //store.dispatch("Action_Logout")
-  }
-  if (to.matched.some((route) => route.meta.requiresAuth)) {
-    if (confirm("Ir para Login?!") == true) {
-      next('/login')
-    } else {
-      next();
-    }
 
-    
-  } else {
-    next();
-  }
-});
 export default router;
