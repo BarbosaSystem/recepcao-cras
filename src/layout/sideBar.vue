@@ -41,6 +41,7 @@ import menuLink from '../components/menuLink.vue';
               <ul class="nav flex-column">
                 <menuLink :info="{route: '/', label: 'ATENDIMENTOS'}" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close" />
                 <menuLink :info="{route: '/historico', label: 'HISTÓRICO'}" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close" />
+                <menuLink :info="{route: '/dashboard', label: 'DASHBOARD'}" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close" />
               </ul>
             </div>
           </nav>

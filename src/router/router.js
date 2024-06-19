@@ -19,6 +19,12 @@ const routes = [
         name:"historico",
         meta: { title: "Histórico de Atendimentos", requiresAuth: true },
     },
+    {
+        path: "/dashboard",
+        component: () => import('../views/dashboard.vue'),
+        name:"historico",
+        meta: { title: "Dashboard", requiresAuth: true },
+    },
      /* { path: '/atendimento', component: atendimentoView, meta: { title: "Fila de Espera", sideBar:true, requiresAuth: true , accessLevel: ['USUARIO', 'ADMINISTRADOR', 'SYSADMIN'], visible: true }},
       { path: '/historico', component: historicoView, meta: { title: "Histórico", sideBar:true, requiresAuth: true, accessLevel: ['USUARIO', 'ADMINISTRADOR', 'SYSADMIN'], visible: true  }},
       { path: "/teste", component: testeView,  meta: { title: "Teste", requiresAuth: true, sideBar:true, accessLevel: ['SYSADMIN'], visible: false}},
