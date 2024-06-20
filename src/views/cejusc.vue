@@ -31,9 +31,9 @@
                     <tr>
                         <td>01/01/2021</td>
                         <td  class="text-end">
-                            <button class="btn btn-default">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </button>
+                            <a href="/cejusc/20062024">
+                                <i class="fa-solid fa-circle-arrow-right"></i>
+                            </a>
                         </td>
                     </tr>
                     

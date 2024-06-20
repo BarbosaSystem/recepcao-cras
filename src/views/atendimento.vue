@@ -6,7 +6,6 @@ import myMixin from '../mixin/mixinAtendimento'
 export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
-            console.log(this.$Utils)
             // access to component instance via `vm`
             vm.$store.dispatch("Action_LoadAtendimentos", { currentPage: 1, status: false });
         });

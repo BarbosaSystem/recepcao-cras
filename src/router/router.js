@@ -18,6 +18,11 @@ const routes = [
     name:"cejusc",
     meta: { title: "Atendimentos Cejusc" },
   },
+  {
+    path: "/cejusc/:id",
+    component: () => import('../views/cejuscDetail.vue'),
+    name:"cejuscDetail",
+  },
 ];
 
 const router = createRouter({
