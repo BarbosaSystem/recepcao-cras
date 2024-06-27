@@ -3,13 +3,14 @@ import SearchBar from '../components/searchBar.vue';
 import TableLoading from '../components/tableLoading.vue';
 import Pagination from '../components/pagination.vue';
 import modalAtendimento from '../components/modalAtendimento.vue';
-
+import modalOption from '../components/modalOption.vue';
 export default {
   components: {
     SearchBar,
     TableLoading,
     Pagination,
-    modalAtendimento
+    modalAtendimento,
+    modalOption
   },
   computed: {
     ...mapGetters(["getAtendimentos", "getCurrentPage", "getPages", "getGrafico", "getLoading"]),
@@ -59,6 +60,11 @@ export default {
         this.atendimentoFormulario[key].disabled = true
       })
       this.$Utils.openDialog("modalAtender")
+    },
+    showOptionModal(item){
+      localStorage.setItem("item", JSON.stringify(item))
+      console.log(item)
+      this.$Utils.openDialog("modalOption")
     },
     showInfoForm(item) {
       this.mode = "Info"

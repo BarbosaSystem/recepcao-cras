@@ -10,7 +10,7 @@ const routes = [
       {
         path: "/atendimento",
         component: () => import('../views/atendimento.vue'),
-        name:"home",
+        name:"atendimento",
         meta: { title: "Central de Atendimentos", requiresAuth: true },
     },
     {
@@ -22,7 +22,7 @@ const routes = [
     {
         path: "/dashboard",
         component: () => import('../views/dashboard.vue'),
-        name:"historico",
+        name:"dashboard",
         meta: { title: "Dashboard", requiresAuth: true },
     },
      /* { path: '/atendimento', component: atendimentoView, meta: { title: "Fila de Espera", sideBar:true, requiresAuth: true , accessLevel: ['USUARIO', 'ADMINISTRADOR', 'SYSADMIN'], visible: true }},

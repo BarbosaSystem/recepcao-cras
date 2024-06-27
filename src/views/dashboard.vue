@@ -2,9 +2,9 @@
     <div class="cabecalho">
       <h1 class="h2">{{ $route.meta.title }}</h1>
     </div>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-6">
           <div class="card">
             <div class="card-body d-flex justify-content-center flex-column text-center">
               <h5 class="card-title mb-5">Últimos 7 dias</h5>
@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Gráfico de Vendas por Categoria</h5>

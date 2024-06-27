@@ -49,8 +49,8 @@ export default {
                     <tr>
                     <th>Data</th>
                     <th>Nome</th>
-                    <th class="d-none d-sm-table-cell">Tipo Doc </th>
-                    <th class="d-none d-sm-table-cell">Documento</th>
+                    <!--<th class="d-none d-sm-table-cell">Tipo Doc </th>
+                     <th class="d-none d-sm-table-cell">Documento</th> -->
                     <th>Tipo de Servico</th>
                     <th class="text-center">Opções</th>
                     </tr>
@@ -59,12 +59,15 @@ export default {
                     <tr  v-for="(item, index) in getAtendimentos" :key="index" style="vertical-align: middle; cursor: pointer"  >
                     <td>{{ConvertData(item.data)}}</td>
                     <td>{{item.nome}}</td>
-                    <td class="d-none d-sm-table-cell ">{{item.tipo_doc}}</td>
-                    <td class="d-none d-sm-table-cell ">{{docLength(item.documento)}}</td>
+                    <!-- <td class="d-none d-sm-table-cell ">{{item.tipo_doc}}</td>
+                    <td class="d-none d-sm-table-cell ">{{docLength(item.documento)}}</td> -->
                     <td>{{item.tipo_atendimento}}</td>
-                    <td class="text-end">
-                        <div class="dropdown">
-                            <button :class="{ 'btn-dark' : item.status }" class="btn btn-default border btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <td class="text-center">
+                        <button @click="showAtendimentoForm(item)" class="btn btn-default w-100" type="button">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </button>
+                        <!-- <div class="dropdown">
+                            <button :class="{ 'btn-dark' : item.status }" class="btn btn-default w-100 border btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Opções
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
@@ -89,7 +92,7 @@ export default {
                                     </button> 
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </td>
                     </tr>
                 </tbody>

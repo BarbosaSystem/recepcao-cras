@@ -54,6 +54,28 @@ export default {
             if (item.params == "") {
             }
             this.$store.dispatch("Action_LoadAtendimento_ByParameter", item);
+        },
+        teste(item){
+          let model = null
+          switch (item) {
+            case 'atender':
+              this.$Utils.closeDialog("modalOption")
+              model = JSON.parse(localStorage.getItem('item'))
+              this.showAtendimentoForm(model)
+              break;
+            case 'editar':
+              this.$Utils.closeDialog("modalOption")
+              model = JSON.parse(localStorage.getItem('item'))
+              this.showEditForm(model)
+              break;
+            case 'excluir':
+              this.$Utils.closeDialog("modalOption")
+              model = JSON.parse(localStorage.getItem('item'))
+              this.showDeleteForm(model)
+              break;
+            default:
+              break;
+          }
         }
     },
     components: { ModalAtender, ModalExcluir }
@@ -82,6 +104,7 @@ export default {
     <modalAtendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
     <ModalAtender :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
     <ModalExcluir @deleteForm="deleteRegistro" :model="atendimentoFormulario" />
+    <modalOption @atender="teste"/>
     <div class="loading">
 
       <table-loading v-if="$store.getters.getLoading"> </table-loading>
@@ -94,22 +117,22 @@ export default {
 
             <th>Nome</th>
             <th class="d-none d-sm-table-cell">Tipo Doc </th>
-            <th class="d-none d-sm-table-cell">Documento</th>
+            <!-- <th class="d-none d-sm-table-cell">Documento</th> -->
             <th>Tipo de Servico</th>
-            <th class="text-center">Opções</th>
+            <!-- <th class="text-center">Opções</th> -->
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in orderAtendimentos" :key="index" style="vertical-align: middle; cursor: pointer">
+          <tr @click="showOptionModal(item)" v-for="(item, index) in orderAtendimentos" :key="index" style="vertical-align: middle; cursor: pointer">
             <td style="text-align: center;"><span class="prio"
                 :class="{ 'bg-danger': item.prioridade, 'bg-success': !item.prioridade }"></span></td>
             <td>{{ ConvertData(item.data) }}</td>
 
             <td>{{ item.nome.toUpperCase() }}</td>
             <td class="d-none d-sm-table-cell ">{{ item.tipo_doc }}</td>
-            <td class="d-none d-sm-table-cell ">{{ docLength(item.documento) }}</td>
+            <!-- <td class="d-none d-sm-table-cell ">{{ docLength(item.documento) }}</td> -->
             <td>{{ item.tipo_atendimento }}</td>
-            <td class="text-center">
+            <!-- <td class="text-center">
               <div class="dropdown">
                 <button :class="{ 'btn-dark': item.status }" class="btn btn-default btn-sm dropdown-toggle" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -141,7 +164,7 @@ export default {
                   </li>
                 </ul>
               </div>
-            </td>
+            </td>-->
           </tr>
           <tr class="text-center" v-if="$store.getters.getAtendimentos == 0">
             <td colspan=7> <label>Nenhum Registro Encontrado </label> </td>
