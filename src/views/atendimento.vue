@@ -156,6 +156,7 @@ export default {
         <span class="prio bg-danger"></span> Atendimento Prioritário
         <span class="prio bg-success"></span> Atendimento Comum
     </div>
-  </div>
+    </div>
 
-</div></template>
+  </div>
+</template>
