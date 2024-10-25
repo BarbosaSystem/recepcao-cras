@@ -1,3 +1,11 @@
+.data-list-item{
+  transition: transform .2s linear;
+  cursor: pointer;
+}
+.data-list-item:hover{
+  transform: translateY(-5px);
+  z-index: 1000;
+}
 .cabecalho {
   display: flex;
   margin-bottom: 1rem;
@@ -15,7 +23,7 @@
   justify-content: space-between;
   border-radius: 25px;
   height: 100%;
-
+  margin-bottom: 20px;
 }
 
 .select-input {

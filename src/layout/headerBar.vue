@@ -15,7 +15,7 @@ import { mapGetters } from 'vuex';
   }
 </script>
 <template>
-    <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+    <header id="header" class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
       <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#"><img class="img-fluid" width="24px" :src="getLogo" /> Recepção CRAS</a>
       <ul class="navbar-nav flex-row d-none d-md-block">
         <li class="nav-item text-nowrap">

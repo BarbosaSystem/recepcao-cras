@@ -45,5 +45,27 @@
       
     </script>
     <script type="module" src="/src/main.js"></script>
+    <script>  
+      function ajustarAltura() {
+          console.log(window.innerHeight);
+          console.log(window.innerWidth);
+          if (window.innerWidth >= 768) {
+              const div = document.getElementById('header');
+              const main = document.getElementsByTagName("main")[0]; // Acesse o primeiro elemento
+              const alturaJanela = div.clientHeight;
+
+              // Define a altura do main usando a string diretamente
+              main.style.height = `calc(100vh - ${alturaJanela}px)`;
+
+              console.log(`calc(100vh - ${alturaJanela}px)`);
+          }
+      }
+
+      // Ajusta a altura ao carregar a página
+      window.onload = ajustarAltura;
+
+      // Ajusta a altura ao redimensionar a janela
+      window.onresize = ajustarAltura;
+    </script>
   </body>
 </html>

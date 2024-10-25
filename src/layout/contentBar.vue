@@ -8,7 +8,7 @@ import { useStore } from 'vuex';
 </script>
 
 <template>
-   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="position: relative; height: calc(100vh - 50px);">
+   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="height: calc(100vh - 50px); overflow-Y: auto; position: relative;">
         <!-- <toast-el></toast-el> -->
         <router-view></router-view>
     </main>
