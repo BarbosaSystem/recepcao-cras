@@ -3,6 +3,7 @@ import ModalAtender from '../components/modalAtender.vue';
 import ModalExcluir from '../components/modalExcluir.vue';
 import Pagination from '../components/pagination.vue';
 import myMixin from '../mixin/mixinAtendimento'
+
 export default {
     beforeRouteEnter(to, from, next) {
         next(vm => {
@@ -60,7 +61,10 @@ export default {
 }
 </script>
 <template>
-  <div>
+  <div class="h-100 d-flex flex-column">
+    <modalAtendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
+    <ModalAtender :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
+    <ModalExcluir @deleteForm="deleteRegistro" :model="atendimentoFormulario" />
     <div class="cabecalho">
       <h1 class="h2">{{ $route.meta.title }}</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -75,88 +79,27 @@ export default {
         </div>
       </div>
     </div>
-    <div class="row col">
-      <search-bar @buscaPessoa="buscarPessoa" label="Buscar..."
+    <search-bar @buscaPessoa="buscarPessoa" label="Buscar..."
         :optionsList="[{ label: 'Nome', value: 'nome' }, { label: 'Nº doc', value: 'documento' }]"></search-bar>
+    
+
+    <div class="card-group mt-3 d-flex flex-column gap-1">
+      <AtendimentoCard v-for="(item, index) in orderAtendimentos" :key="index"
+          :item="item"
+          @showAtendimentoForm="showAtendimentoForm"
+          @showEditForm="showEditForm"
+          @showDeleteForm="showDeleteForm"
+          @showInfoForm="showInfoForm"
+      />
     </div>
-    <modalAtendimento :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
-    <ModalAtender :modulo="mode" @enviarForm="submit" :model="atendimentoFormulario" />
-    <ModalExcluir @deleteForm="deleteRegistro" :model="atendimentoFormulario" />
-    <div class="loading">
-
-      <table-loading v-if="$store.getters.getLoading"> </table-loading>
-
-      <table class="table table-striped table-hover table-sm" v-else="$store.getters.getLoading">
-        <thead>
-          <tr>
-            <th class="text-center"></th>
-            <th>Data</th>
-
-            <th>Nome</th>
-            <th class="d-none d-sm-table-cell">Tipo Doc </th>
-            <th class="d-none d-sm-table-cell">Documento</th>
-            <th>Tipo de Servico</th>
-            <th class="text-center">Opções</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in orderAtendimentos" :key="index" style="vertical-align: middle; cursor: pointer">
-            <td style="text-align: center;"><span class="prio"
-                :class="{ 'bg-danger': item.prioridade, 'bg-success': !item.prioridade }"></span></td>
-            <td>{{ ConvertData(item.data) }}</td>
-
-            <td>{{ item.nome.toUpperCase() }}</td>
-            <td class="d-none d-sm-table-cell ">{{ item.tipo_doc }}</td>
-            <td class="d-none d-sm-table-cell ">{{ docLength(item.documento) }}</td>
-            <td>{{ item.tipo_atendimento }}</td>
-            <td class="text-center">
-              <div class="dropdown">
-                <button :class="{ 'btn-dark': item.status }" class="btn btn-default btn-sm dropdown-toggle" type="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Opções
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <button type="button" class="btn btn-success dropdown-item" v-if="!item.status" title="Atender"
-                      @click="showAtendimentoForm(item)"><i class="fa-solid fa-circle-check"></i> Atender
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn btn-secondary dropdown-item" v-if="!item.status" title="Editar"
-                      @click="showEditForm(item)">
-                      <i class="fa-solid fa-pen-to-square"></i> Editar
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn btn-secondary dropdown-item" v-if="!item.status" title="Cancelar"
-                      @click="showDeleteForm(item)">
-                      <i class="fa-solid fa-circle-xmark"></i> Excluir
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn btn-secondary dropdown-item" v-if="item.status"
-                      title="Mais Informações" @click="showInfoForm(item)">
-                      <i class="fa-regular fa-circle-question"></i> Detalhes
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr class="text-center" v-if="$store.getters.getAtendimentos == 0">
-            <td colspan=7> <label>Nenhum Registro Encontrado </label> </td>
-          </tr>
-
-        </tbody>
-      </table>
+    <div class="d-flex justify-content-between mt-auto align-items-center">
+      <div class="accordion-body d-flex gap-2">
+          <span class="prio bg-danger"></span> Atendimento Prioritário
+          <span class="prio bg-success"></span> Atendimento Comum
+      </div>
       <Pagination v-if="orderAtendimentos.length > 0" :disableButton:="$store.getters.getLoading"
         :total-pages="$store.getters.getPages" :per-page="$store.getters.GetPageSize"
         :current-page="$store.getters.getCurrentPage" @pagechanged="onPageChange" />
-      <div class="accordion-body">
-        <span class="prio bg-danger"></span> Atendimento Prioritário
-        <span class="prio bg-success"></span> Atendimento Comum
-    </div>
-    </div>
-
+      </div>
   </div>
 </template>

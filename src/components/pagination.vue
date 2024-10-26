@@ -91,7 +91,7 @@ export default {
   <nav aria-label="Page navigation example">
     <ul class="pagination" style="justify-content: flex-end; margin-bottom: 0">
       <li class="pagination-item">
-        <button type="button" class="btn-sm page-link" :class="[isInFirstPage ? 'disabled' : '']"
+        <button type="button" class="btn btn-default" :class="[isInFirstPage ? 'disabled' : '']"
           @click="onClickPreviousPage" :disabled="isInFirstPage || disableButton" aria-label="Go to previous page">
           Anterior
         </button>
@@ -103,7 +103,7 @@ export default {
         </button>
       </li> -->
       <li class="pagination-item">
-        <button type="button" class="btn-sm page-link" :class="[isInLastPage ? 'disabled' : '']" @click="onClickNextPage"
+        <button type="button" class="btn btn-default" :class="[isInLastPage ? 'disabled' : '']" @click="onClickNextPage"
           :disabled="isInLastPage || disableButton" aria-label="Go to next page">
           Próximo
         </button>
